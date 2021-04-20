@@ -7,7 +7,6 @@ import com.demo.fruitsapp.service.FruitService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -50,7 +49,7 @@ public class FruitResource {
 
     @PutMapping("/fruits")
     @ResponseStatus(HttpStatus.OK)
-    public FruitDto updateProduct(@RequestBody FruitDto fruitDto) throws ParseException {
+    public FruitDto updateFruit(@RequestBody FruitDto fruitDto) throws ParseException {
         Fruit fruit = convertToEntity(fruitDto);
         fruitService.updateFruit(fruit);
         return fruitDto;
