@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.annotations.Api;
+
 import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@Api( tags = "Fruit")
 public class FruitResource {
 
     @Autowired
@@ -27,7 +30,9 @@ public class FruitResource {
         this.fruitService = fruitService;
     }
 
-    @GetMapping("/fruits")
+    @CrossOrigin
+    @RequestMapping(method = RequestMethod.GET, path = "/fruits")
+    // @GetMapping("/fruits")
     public List<FruitDto> getAllFruit() {
         List<Fruit> fruits = fruitService.getAllFruit();
         return fruits.stream().map(this::convertToDto).collect(Collectors.toList());
