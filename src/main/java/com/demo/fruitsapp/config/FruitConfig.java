@@ -16,9 +16,10 @@ public class FruitConfig {
     CommandLineRunner commandLineRunner(FruitRepository fruitRepository) {
 
         return args -> {
-            Fruit apple = new Fruit("apple", "appledesc", "secret");
-            Fruit strawberry = new Fruit("strawberry", "strawberry description", "secret");
-            fruitRepository.saveAll(List.of(apple, strawberry));
+            Fruit apple = new Fruit("Apple", "appledesc", "secret");
+            Fruit strawberry = new Fruit("Strawberry", "strawberry description", "secret");
+            Fruit banana = new Fruit("Banana", "strawberry description", "secret");
+            fruitRepository.saveAll(List.of(apple, strawberry, banana));
         };
 
     }

@@ -13,7 +13,7 @@ public class FruitDtoUnitTest {
     private ModelMapper modelMapper = new ModelMapper();
 
     @Test
-    public void whenConvertFruitEntityToFruitDto_thenCorrect() {
+    public void whenConvertFruitEntityToFruitDto() {
         Fruit fruit = new Fruit();
         fruit.setId(1L);
         fruit.setName("testFruit");
@@ -23,6 +23,20 @@ public class FruitDtoUnitTest {
         assertEquals(fruit.getId(), fruitDto.getId());
         assertEquals(fruit.getName(), fruitDto.getName());
         assertEquals(fruit.getDescription(), fruitDto.getDescription());
+    }
+
+    @Test
+    public void whenConvertFruitDtoToEntity() {
+        FruitDto fruitDto = new FruitDto();
+        fruitDto.setId(1L);
+        fruitDto.setName("Test Fruit");
+        fruitDto.setDescription("Test Description");
+
+        Fruit fruit = modelMapper.map(fruitDto, Fruit.class);
+        assertEquals(fruitDto.getId(), fruit.getId());
+        assertEquals(fruitDto.getName(), fruit.getName());
+        assertEquals(fruitDto.getDescription(), fruit.getDescription());
+
     }
 
 }
