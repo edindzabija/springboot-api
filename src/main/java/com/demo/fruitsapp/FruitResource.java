@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.annotations.Api;
+
 import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@Api(tags = "Fruit")
 public class FruitResource {
 
     @Autowired
@@ -27,18 +30,20 @@ public class FruitResource {
         this.fruitService = fruitService;
     }
 
-    @GetMapping("/fruits")
+    @GetMapping(path = "/fruits")
     public List<FruitDto> getAllFruit() {
         List<Fruit> fruits = fruitService.getAllFruit();
         return fruits.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    @GetMapping("/fruits/{id}")
+    @CrossOrigin
+    @GetMapping(path = "/fruits/{id}")
     public FruitDto getFruitById(@PathVariable("id") Long id) {
         return convertToDto(fruitService.getFruitById(id));
     }
 
-    @PostMapping("/fruits")
+    @CrossOrigin
+    @PostMapping(path = "/fruits")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public FruitDto addFruit(@RequestBody FruitDto fruitDto) throws ParseException {
@@ -47,7 +52,8 @@ public class FruitResource {
         return convertToDto(fruitCreated);
     }
 
-    @PutMapping("/fruits")
+    @CrossOrigin
+    @PutMapping(path = "/fruits")
     @ResponseStatus(HttpStatus.OK)
     public FruitDto updateFruit(@RequestBody FruitDto fruitDto) throws ParseException {
         Fruit fruit = convertToEntity(fruitDto);
@@ -55,7 +61,7 @@ public class FruitResource {
         return fruitDto;
     }
 
-    @DeleteMapping("/fruits/{id}")
+    @DeleteMapping(path = "/fruits/{id}")
     public void deleteFruit(@PathVariable("id") Long id) {
         fruitService.deleteFruit(id);
     }
